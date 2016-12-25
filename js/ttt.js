@@ -73,8 +73,45 @@ tttConfigApp.controller("tttController", function($scope) {
 		}
 
 		//otherwise horizontal or vertical cells
+		if($scope.checkHorizontal(r,userCode)){
+			return;
+		}
+		if($scope.checkVertical(c,userCode)){
+			return;
+		}
+
 
 	}
+
+	$scope.checkHorizontal = function(r,userCode) {
+		var status = true;
+		for(var i=0;i < $scope.cols;i++){
+			if($scope.playerCode[10*r+i] != userCode){
+				status = false;
+				break;
+			}
+		}
+		if(status){
+			$scope.userWon.first = userCode=='O'?true:false;
+			$scope.userWon.second = userCode=='X'?true:false;
+		}
+		return status;
+	};
+
+	$scope.checkVertical = function(c,userCode) {
+		var status = true;
+		for(var i=0;i<$scope.rows;i++){
+			if($scope.playerCode[10*i+c] != userCode){
+				status = false;
+				break;
+			}
+		}
+		if(status){
+			$scope.userWon.first = userCode=='O'?true:false;
+			$scope.userWon.second = userCode=='X'?true:false;
+		}
+		return status;
+	};
 
 	$scope.checkDiagonal = function(diagonalMatrix,userCode) {
 		var status = true;
