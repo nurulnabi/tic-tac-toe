@@ -66,35 +66,29 @@ tttConfigApp.controller("tttController", function($scope) {
 		
 		var idx = 10*r+c;
 		if($scope.diagonallyDown.indexOf(idx) != -1){			//check diangonally for winning
-			var status = true;
-			for(var id in $scope.diagonallyDown){				//id is index in diagonallyDown arr
-				if($scope.playerCode[$scope.diagonallyDown[id]] != userCode){
-					status = false;
-				}			
-			}
-			if(status){							//set the user to be winner
-				$scope.userWon.first = userCode=='O'?true:false;
-				$scope.userWon.second = userCode=='X'?true:false;
-			}
-			return;
+			if($scope.checkDiagonal($scope.diagonallyDown,userCode)) return;
 		}
 		if($scope.diagonallyUp.indexOf(idx) != -1){
-			var status = true;
-			for(var id in $scope.diagonallyUp){
-				if($scope.playerCode[$scope.diagonallyUp[id]] != userCode){
-					status = false;
-				}			
-			}
-			if(status){							//set the user to be winner
-				$scope.userWon.first = userCode=='O'?true:false;
-				$scope.userWon.second = userCode=='X'?true:false;
-			}
-			return;
+			if($scope.checkDiagonal($scope.diagonallyUp,userCode)) return;
 		}
 
 		//otherwise horizontal or vertical cells
 
 	}
+
+	$scope.checkDiagonal = function(diagonalMatrix,userCode) {
+		var status = true;
+		for(var id in diagonalMatrix){				//id is index in diagonalMatrix arr
+			if($scope.playerCode[diagonalMatrix[id]] != userCode){
+				status = false;
+			}			
+		}
+		if(status){							//set the user to be winner
+			$scope.userWon.first = userCode=='O'?true:false;
+			$scope.userWon.second = userCode=='X'?true:false;
+		}
+		return status;
+	};
 
     $scope.numberToArray = function(num){
 		var arr = [];
