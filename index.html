@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ttt">
+    <head>
+        <meta charset="utf-8">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+        <script type="text/javascript" src="js/ttt.js"></script>
+        <style type="text/css">
+        	table{
+        		border-collapse: collapse;
+        	}
+        	td{
+        		border: 1px solid;
+        		border-collapse: collapse;
+        		width: 30px;
+        		height: 30px;
+        		text-align: center;
+        	}
+        	td:hover{
+        		cursor: pointer;
+        	}
+        </style>
+    </head>
+    <body ng-controller="tttController">
+    	<!-- <div id="size">
+    		<input type="number" ng-bind="rw">
+    		<input type="number" ng-bind="cl">
+    	</div> -->
+    	<div id="matrix">
+    		<p>hello noorul</p>
+    		<table>
+    			<tr ng-repeat="numRows in numberToArray(rows)">
+    				<td ng-repeat="numCols in numberToArray(cols)" ng-click="fillUser($parent.$index,$index)">
+    					{{playerCode[10*$parent.$index+$index]}}
+    				</td>
+    			</tr>
+    		</table>
+    		<span>{{data.row}}  {{data.col}}  {{data.cde}}</span><br>
+			<span ng-repeat="a in diagonallyDown">{{a}}  </span><br>
+			<span ng-repeat="b in diagonallyUp">{{b}}  </span>
+    		<p>user1:{{userWon.first}}</p>
+    		<p>user2:{{userWon.second}}</p>
+    	</div>
+    </body>
+</html>
