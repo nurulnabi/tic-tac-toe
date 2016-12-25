@@ -21,12 +21,11 @@
         </style>
     </head>
     <body ng-controller="tttController">
-    	<!-- <div id="size">
-    		<input type="number" ng-bind="rw">
-    		<input type="number" ng-bind="cl">
-    	</div> -->
+    	<div id="size">
+    		<!-- <input type="number" ng-model="rows" min="3" max="10" step="2" value="3"> -->
+    		<!-- <input type="number" ng-bind="cl"> -->
+    	</div>
     	<div id="matrix">
-    		<p>hello noorul</p>
     		<table>
     			<tr ng-repeat="numRows in numberToArray(rows)">
     				<td ng-repeat="numCols in numberToArray(cols)" ng-click="fillUser($parent.$index,$index)">
@@ -34,11 +33,9 @@
     				</td>
     			</tr>
     		</table>
-    		<span>{{data.row}}  {{data.col}}  {{data.cde}}</span><br>
-			<span ng-repeat="a in diagonallyDown">{{a}}  </span><br>
-			<span ng-repeat="b in diagonallyUp">{{b}}  </span>
-    		<p>user1:{{userWon.first}}</p>
-    		<p>user2:{{userWon.second}}</p>
+    		<!-- <span>{{data.row}}  {{data.col}}  {{data.cde}}</span><br> -->
+			<!-- <span ng-repeat="a in diagonallyDown">{{a}}  </span><br> -->
+			<!-- <span ng-repeat="b in diagonallyUp">{{b}}  </span> -->
     	</div>
     </body>
 </html>

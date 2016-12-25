@@ -1,7 +1,7 @@
  tttConfigApp = angular.module("ttt",[]);
 tttConfigApp.controller("tttController", function($scope) {
-	$scope.rows = 3;
-	$scope.cols = 3;
+	$scope.rows = 4;
+	$scope.cols = 4;
 	$scope.userWon = {
 		"first":false,
 		"second":false
@@ -66,23 +66,49 @@ tttConfigApp.controller("tttController", function($scope) {
 		
 		var idx = 10*r+c;
 		if($scope.diagonallyDown.indexOf(idx) != -1){			//check diangonally for winning
-			if($scope.checkDiagonal($scope.diagonallyDown,userCode)) return;
+			if($scope.checkDiagonal($scope.diagonallyDown,userCode)){
+			 setTimeout(alert("'"+userCode+"'"+" won the game"),8000);
+			 $scope.refreshMatrix();
+			 return;
+			}
 		}
 		if($scope.diagonallyUp.indexOf(idx) != -1){
-			if($scope.checkDiagonal($scope.diagonallyUp,userCode)) return;
+			if($scope.checkDiagonal($scope.diagonallyUp,userCode)){
+			 setTimeout(alert("'"+userCode+"'"+" won the game"),8000);
+			 $scope.refreshMatrix();
+			 return;
+			}
 		}
 
 		//otherwise horizontal or vertical cells
 		if($scope.checkHorizontal(r,userCode)){
+			 setTimeout(alert("'"+userCode+"'"+" won the game"),8000);
+			 $scope.refreshMatrix();
 			return;
 		}
 		if($scope.checkVertical(c,userCode)){
+			 setTimeout(alert("'"+userCode+"'"+" won the game"),8000);
+			 $scope.refreshMatrix();
 			return;
 		}
 
 
 	}
 
+	$scope.refreshMatrix = function() {
+		var arr =[];
+		for (var i = 0; i < $scope.rows; i++) {
+			for (var j = 0; j < $scope.cols; j++) {
+				var idx = 10*i+j;
+				arr[idx] = "";
+			}
+		}
+
+		$scope.playerCode = arr;
+		$scope.userWon.first = false;
+		$scope.userWon.second = false;
+
+	};
 	$scope.checkHorizontal = function(r,userCode) {
 		var status = true;
 		for(var i=0;i < $scope.cols;i++){
