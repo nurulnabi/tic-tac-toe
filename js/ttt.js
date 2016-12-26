@@ -1,48 +1,56 @@
  tttConfigApp = angular.module("ttt",[]);
 tttConfigApp.controller("tttController", function($scope) {
-	$scope.rows = 4;
-	$scope.cols = 4;
+	$scope.rows = 0;
+	$scope.cols = 0;
 	$scope.userWon = {
 		"first":false,
 		"second":false
 	};
-	$scope.changePlayer = 1;
-	$scope.diagonallyDown = (function() {		
-		var arr = [];
-		var j = 0;
-		for (var i = 0; i < $scope.rows; i++) {
-				arr.push(10*i+j)
-				j++;
-		}
-		return arr;	
-	}());
-
-	$scope.diagonallyUp = (function(){
-		var arr = [];
-		var j = $scope.rows;
-		for (var i = 0; i < $scope.rows; i++) {
-				j--;
-				arr.push(10*i+j)
-		}
-		return arr;	
-	}());
-
-	$scope.playerCode = (function(){
-		var arr =[];
-		for (var i = 0; i < $scope.rows; i++) {
-			for (var j = 0; j < $scope.cols; j++) {
-				var idx = 10*i+j;
-				arr[idx] = "";
-			}
-		}
-		return arr;
-	}());
-
 	$scope.player = {
 		"first":'O',
 		"second":"X"
 	}
+	$scope.changePlayer = 1;
+	$scope.diagonallyDown = [];
+	$scope.diagonallyUp = [];
+	$scope.playerCode = [];
 
+	$scope.changeSize = function(size) {
+		$scope.rows = size;
+		$scope.cols = size;
+		$scope.changePlayer = 1;
+		//diagonal matrix
+		$scope.diagonallyDown = (function() {		
+			var arr = [];
+			var j = 0;
+			for (var i = 0; i < $scope.rows; i++) {
+					arr.push(10*i+j)
+					j++;
+			}
+			return arr;	
+		}());
+
+		$scope.diagonallyUp = (function(){
+			var arr = [];
+			var j = $scope.rows;
+			for (var i = 0; i < $scope.rows; i++) {
+					j--;
+					arr.push(10*i+j)
+			}
+			return arr;	
+		}());
+
+		$scope.playerCode = (function(){
+			var arr =[];
+			for (var i = 0; i < $scope.rows; i++) {
+				for (var j = 0; j < $scope.cols; j++) {
+					var idx = 10*i+j;
+					arr[idx] = "";
+				}
+			}
+			return arr;
+		}());
+	}
 	//fill the cell with the 'O' or 'X' as per the user
 	$scope.fillUser = function(r,c) {
 		if(!$scope.playerCode[10*r+c]){
@@ -67,14 +75,14 @@ tttConfigApp.controller("tttController", function($scope) {
 		var idx = 10*r+c;
 		if($scope.diagonallyDown.indexOf(idx) != -1){			//check diangonally for winning
 			if($scope.checkDiagonal($scope.diagonallyDown,userCode)){
-			 setTimeout(alert("'"+userCode+"'"+" won the game"),8000);
+			 alert("'"+userCode+"'"+" won the game");
 			 $scope.refreshMatrix();
 			 return;
 			}
 		}
 		if($scope.diagonallyUp.indexOf(idx) != -1){
 			if($scope.checkDiagonal($scope.diagonallyUp,userCode)){
-			 setTimeout(alert("'"+userCode+"'"+" won the game"),8000);
+			 alert("'"+userCode+"'"+" won the game");
 			 $scope.refreshMatrix();
 			 return;
 			}
@@ -82,12 +90,12 @@ tttConfigApp.controller("tttController", function($scope) {
 
 		//otherwise horizontal or vertical cells
 		if($scope.checkHorizontal(r,userCode)){
-			 setTimeout(alert("'"+userCode+"'"+" won the game"),8000);
+			 alert("'"+userCode+"'"+" won the game");
 			 $scope.refreshMatrix();
 			return;
 		}
 		if($scope.checkVertical(c,userCode)){
-			 setTimeout(alert("'"+userCode+"'"+" won the game"),8000);
+			 alert("'"+userCode+"'"+" won the game");
 			 $scope.refreshMatrix();
 			return;
 		}
